@@ -1,0 +1,131 @@
+// FILE STRUCTURE
+// src/
+//   pages/
+//     index.astro
+//     about.astro
+//     blog.astro
+//   content/
+//     blog/
+//       first-post.md
+//   styles/
+//     global.css
+
+
+// =========================
+// src/pages/index.astro
+// =========================
+---
+import "../styles/global.css";
+---
+
+<html>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+    </nav>
+
+    <h1>Welcome to My Site</h1>
+    <p>This is my Astro project.</p>
+  </body>
+</html>
+
+
+// =========================
+// src/pages/about.astro
+// =========================
+---
+const name = "Jamille";
+const major = "Business";
+const graduation = "2026";
+---
+
+<html>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+    </nav>
+
+    <h1>About Me</h1>
+    <p>My name is {name} and I study {major}.</p>
+    <p>I plan to graduate in {graduation}.</p>
+  </body>
+</html>
+
+<style>
+  h1 {
+    color: darkblue;
+  }
+
+  p {
+    font-size: 18px;
+  }
+</style>
+
+
+// =========================
+// src/pages/blog.astro
+// =========================
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<html>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+    </nav>
+
+    <h1>My Blog</h1>
+
+    <ul>
+      {posts.map(post => (
+        <li>
+          <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
+
+
+// =========================
+// src/content/blog/first-post.md
+// =========================
+---
+title: "My First Blog Post"
+date: "2026-04-03"
+---
+
+This is my first blog post.
+
+I learned how to use Astro and Markdown to build a website. At first it was confusing, but after working through it, it started to make more sense.
+
+Now I know how to create pages, add blog posts, and style my site.
+
+
+// =========================
+// src/styles/global.css
+// =========================
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 20px;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  color: black;
+}
